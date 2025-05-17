@@ -18,7 +18,9 @@ public final class ImageKit {
                 let filePath = docPath.appendingPathComponent("image_\(i).jpg")
                 try? data.write(to: filePath)
             }
+            print("Doc Path: \(docPath)")
         }
+        
         
         return Image(uiImage: image)
     }
