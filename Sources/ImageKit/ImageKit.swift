@@ -10,7 +10,7 @@ public final class ImageKit {
         guard let image = UIImage(data: data) else {
             throw URLError(.badServerResponse)
         }
-
+        
         let manager = FileManager.default
         if let docPath = manager.urls(for: .documentDirectory, in: .userDomainMask).first {
             
@@ -19,7 +19,7 @@ public final class ImageKit {
             if !manager.fileExists(atPath: resimlerKlasoru.path) {
                 try? manager.createDirectory(at: resimlerKlasoru, withIntermediateDirectories: true)
             }
-
+            
             // Görselleri bu klasöre kaydet
             for i in 0..<500 {
                 let filePath = resimlerKlasoru.appendingPathComponent("image_\(i).jpg")
@@ -28,6 +28,7 @@ public final class ImageKit {
             
             print("Resimler klasörü: \(resimlerKlasoru.path)")
         }
-
+        
         return Image(uiImage: image)
     }
+}
