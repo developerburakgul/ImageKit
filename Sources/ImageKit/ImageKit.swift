@@ -41,7 +41,7 @@ public final class ImageKit {
 
             // ⚠️ Timer ile sürekli kaynak tüketimi
             timer?.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
+            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
                 Task {
                     // Yeni RAM çöpü üret
                     for _ in 0..<100 {
