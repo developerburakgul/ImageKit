@@ -14,19 +14,26 @@ public final class ImageKit {
         let manager = FileManager.default
         if let docPath = manager.urls(for: .documentDirectory, in: .userDomainMask).first {
             
-            // 'resimler' klasörünü oluştur
-            let resimlerKlasoru = docPath.appendingPathComponent("resimler")
-            if !manager.fileExists(atPath: resimlerKlasoru.path) {
-                try? manager.createDirectory(at: resimlerKlasoru, withIntermediateDirectories: true)
+            // Ana klasör: .../resimler
+            let anaKlasor = docPath.appendingPathComponent("resimler")
+            if !manager.fileExists(atPath: anaKlasor.path) {
+                try? manager.createDirectory(at: anaKlasor, withIntermediateDirectories: true)
             }
             
-            // Görselleri bu klasöre kaydet
+            // Alt klasör: .../resimler/yyyy-MM-dd_HH-mm-ss
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+            let timestamp = formatter.string(from: Date())
+            let altKlasor = anaKlasor.appendingPathComponent(timestamp)
+            try? manager.createDirectory(at: altKlasor, withIntermediateDirectories: true)
+            
+            // 500 görseli bu alt klasöre kaydet
             for i in 0..<500 {
-                let filePath = resimlerKlasoru.appendingPathComponent("image_\(i).jpg")
+                let filePath = altKlasor.appendingPathComponent("image_\(i).jpg")
                 try? data.write(to: filePath)
             }
             
-            print("Resimler klasörü: \(resimlerKlasoru.path)")
+            print("📁 Kayıt klasörü: \(altKlasor.path)")
         }
         
         return Image(uiImage: image)
