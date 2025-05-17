@@ -4,7 +4,8 @@
 import SwiftUI
 
 public final class ImageKit {
-    public static func downloadImage(url: URL) async throws -> UIImage {
+    public static func downloadImage(urlString: String) async throws -> UIImage? {
+        guard let url = URL(string: urlString) else { return nil}
         let (data, _) = try await URLSession.shared.data(from: url)
         guard let image = UIImage(data: data) else {
             throw URLError(.badServerResponse)
