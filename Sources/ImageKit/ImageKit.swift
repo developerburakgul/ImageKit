@@ -4,7 +4,7 @@
 import SwiftUI
 
 public final class ImageKit {
-    public static func downloadImage(urlString: String) async throws -> UIImage? {
+    public static func downloadImage(urlString: String) async throws -> Image? {
         guard let url = URL(string: urlString) else { return nil}
         let (data, _) = try await URLSession.shared.data(from: url)
         guard let image = UIImage(data: data) else {
@@ -20,6 +20,6 @@ public final class ImageKit {
             }
         }
         
-        return image
+        return Image(uiImage: image)
     }
 }
